@@ -30,9 +30,15 @@ gulp.task('styles', function () {
  * Minify JS
  */
 gulp.task('scripts', function() {
-  gulp.src(['./bower_components/paper/dist/paper-core.js', 'assets/js/main.js'])
+  gulp.src(['./bower_components/paper/dist/paper-core.js',
+            './bower_components/popcornjs/popcorn.js',
+            './assets/js/tools.js',
+            './assets/js/shapes.js',
+            './assets/js/assets.js',
+            './assets/js/mode.js',
+            './assets/js/app.js'])
     .pipe(concat('script.min.js'))
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest('./public/js'))
     .pipe(livereload());
 });
@@ -85,6 +91,6 @@ gulp.task('open', ['nodemon'], function () {
 
 gulp.task('default', ['open', 'styles', 'scripts'], function () {
   gulp.watch('views/*.ejs').on('change', livereload.changed);
-  gulp.watch('.assets/js/*.js', ['scripts'],  livereload.changed);
+  gulp.watch('./assets/js/*.js', ['scripts'],  livereload.changed);
   gulp.watch('./assets/less/**/*.less', ['styles'], livereload.changed);
 });

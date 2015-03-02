@@ -1,0 +1,7 @@
+Shapes = (function (){
+
+  return{
+
+  };
+
+}());

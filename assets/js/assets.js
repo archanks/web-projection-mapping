@@ -1,0 +1,7 @@
+Assets = (function (){
+
+  return{
+
+  };
+
+}());

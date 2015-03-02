@@ -1,1 +1,11 @@
 <% layout('layout') -%>
+
+  <%- partial('dialogs/fullscreen.ejs') %>
+
+  <div id="media" class="maparapa-canvas"></div>
+
+  <canvas id="masker" class="maparapa-canvas" resize></canvas>
+
+  <canvas id="creator" class="maparapa-canvas" resize></canvas>
+
+<%- partial('components/toolset') %>

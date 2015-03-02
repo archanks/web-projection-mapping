@@ -1,0 +1,35 @@
+@import "global.less";
+
+.dialog{
+  background: @primary;
+  color: @base;
+  padding: 20px 0;
+  position: absolute;
+  text-align: right;
+  top: 55px;
+  width: 100%;
+  z-index: 98;
+
+  .dialog-body{
+    text-align: center;
+
+    .dialog-header{
+
+    }
+    .dialog-cta{
+      .no-select();
+      background: @primary;
+      border: solid 1px @base;
+      margin:20px 0;
+      outline: none;
+      padding: 10px;
+    }
+
+  }
+
+  .close-dialog{
+    margin-right: 15px;
+    background: @primary;
+    font-size: 30px;
+  }
+}

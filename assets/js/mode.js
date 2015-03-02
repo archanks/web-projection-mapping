@@ -1,0 +1,7 @@
+Mode = (function (){
+
+  return{
+
+  };
+
+}());
