@@ -26,7 +26,7 @@ app.use(express.static('public'));
 
 app.get('/', function(req, res) {
 
-  res.render('pages/index', );
+  res.render('index' );
 });
 
 http.createServer(app).listen(app.get('port'), function(){

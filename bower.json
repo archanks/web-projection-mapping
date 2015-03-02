@@ -19,6 +19,7 @@
     "tests"
   ],
   "dependencies": {
-    "paper": "~0.9.22"
+    "paper": "~0.9.22",
+    "popcornjs": "~1.3.0"
   }
 }

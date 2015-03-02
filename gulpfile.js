@@ -29,7 +29,7 @@ gulp.task('styles', function () {
  * Minify JS
  */
 gulp.task('scripts', function() {
-  gulp.src(['./assets/js/vendor/jquery.js','./assets/js/vendor/bootstrap.js'])
+  gulp.src(['./bower_components/paper/dist/paper-core.js', 'assets/js/main.js'])
     .pipe(concat('script.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./public/js'))
@@ -84,5 +84,6 @@ gulp.task('open', ['nodemon'], function () {
 
 gulp.task('default', ['open', 'styles', 'scripts'], function () {
   gulp.watch('views/*.ejs').on('change', livereload.changed);
+  gulp.watch('.assets/js/*.js', ['scripts'],  livereload.changed);
   gulp.watch('./assets/*.less', ['styles'], livereload.changed);
 });
