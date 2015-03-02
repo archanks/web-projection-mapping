@@ -11,6 +11,7 @@ var gulp = require('gulp'),
     open = require('gulp-open'),
     minifyCSS = require('gulp-minify-css'),
     concat = require('gulp-concat'),
+    watch = require('gulp-watch'),
     uglify = require('gulp-uglify');
 
 /**
@@ -85,5 +86,5 @@ gulp.task('open', ['nodemon'], function () {
 gulp.task('default', ['open', 'styles', 'scripts'], function () {
   gulp.watch('views/*.ejs').on('change', livereload.changed);
   gulp.watch('.assets/js/*.js', ['scripts'],  livereload.changed);
-  gulp.watch('./assets/*.less', ['styles'], livereload.changed);
+  gulp.watch('./assets/less/**/*.less', ['styles'], livereload.changed);
 });

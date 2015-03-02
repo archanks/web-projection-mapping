@@ -1,0 +1,378 @@
+.clearfix() {
+  *zoom:1;
+  
+  &:before,
+  &:after {
+      content:"";
+      display:table;
+  }
+  &:after {
+      clear:both;
+  }
+}
+
+//From Preboot (http://markdotto.com/bootstrap)
+// Shortcut to set the size of something
+.size(@width: 1em, @height: 1em) {
+  width: @width;
+  height: @height;
+}
+
+//From Preboot (http://markdotto.com/bootstrap)
+//Shortcut to set the size of something that has equal width and height
+.square(@size: 1em) {
+  .size(@size, @size);
+}
+
+//Borders
+.border(@color: @border-color) {
+  border: 1px solid @color;
+}
+
+.rounded(@radius: 2px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+.border-radius(@topright: 0, @bottomright: 0, @bottomleft: 0, @topleft: 0) {
+  -webkit-border-top-right-radius: @topright;
+  -webkit-border-bottom-right-radius: @bottomright;
+  -webkit-border-bottom-left-radius: @bottomleft;
+  -webkit-border-top-left-radius: @topleft;
+  -moz-border-radius-topright: @topright;
+  -moz-border-radius-bottomright: @bottomright;
+  -moz-border-radius-bottomleft: @bottomleft;
+  -moz-border-radius-topleft: @topleft;
+  border-top-right-radius: @topright;
+  border-bottom-right-radius: @bottomright;
+  border-bottom-left-radius: @bottomleft;
+  border-top-left-radius: @topleft;
+  .background-clip(padding-box);
+}
+
+//Shortcut for multiple borders
+.borders(@top:'', @right: '', @bottom:'', @left: '', @color: @border-color) {
+  border-color: @color;
+  border-style: solid;
+  border:@top @right @bottom @left;
+}
+
+//Shortcut for absolute positioning
+.abspos(@top:0, @left:0) {
+  position: absolute;
+  top: @top;
+  left: @left;
+}
+
+.fill() {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left:0;
+}
+
+//Center a block element on the page
+.center() {
+  margin: 0 auto;
+}
+
+//Position element to absolute center (requires fixed width and height)
+.abs-center(@width:100px, @height:100px){
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: @width;
+  height: @height;
+  margin: -@height/2 0 0 -@width/2;
+}
+
+// In the child property, put the class for which child to center.
+// It comes in two parts. One to put on the container, and one on the child
+.vertical-center-container(){
+    &:before {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      margin-right: -0.25em;
+    }
+}
+
+.vertical-center(){
+  display: inline-block;
+  vertical-align: middle;
+}
+
+//Image replacement
+.image-replace() {
+  font: 0/0 a;
+    text-shadow: none;
+    color: transparent;
+}
+
+//Shortcut for repetitive parts of pseudo elements.
+.pseudo(rel) {
+  content: "";
+  display: inline-block;
+  position: relative;
+}
+
+.pseudo() {
+  content: "";
+  display: block;
+  position: absolute;
+}
+
+//Adds elastic scrolling in iOS
+.ios-scroll(){
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+//Removes button style in ios
+.ios-remove-button(){
+  -webkit-appearance: none;
+  border: none;
+}
+
+//Set text highlight color
+.text-highlight(@highlight-color, @text-color){
+  ::-moz-selection {background:@highlight-color; color: @text-color}
+  ::selection    {background:@highlight-color; color: @text-color} 
+}
+
+//Fixes opacity for IE
+.opacity(@alpha: .5){
+  opacity: @alpha;
+  .no-opacity & {
+    filter:~"alpha(opacity="@alpha*100~")";
+    -ms-filter:~"progid:DXImageTransform.Microsoft.Alpha(Opacity="@alpha*100~")";
+  }
+}
+
+//Fixes semi-transparent background for IE
+.bg-fade(@color:white, @alpha: 50){
+  @alphacolor: fade(@color, @alpha);
+  background: @alphacolor;
+  .ie8 & {
+     @iecolor: argb(@alphacolor);
+      background: transparent;
+      -ms-filter:  "progid:DXImageTransform.Microsoft.gradient(startColorstr=@{iecolor}, endColorstr=@{iecolor})";
+  }
+}
+
+.ie7-inline-block(){
+  *display: inline;
+    *zoom: 1;
+}
+
+/* TRIANGLES */
+.triangle(@_, @size, @color, @size-ratio:1){
+  width: 0;
+  height: 0;
+}
+.triangle(up, @size, @color, @size-ratio:1){
+  border-left: @size/@size-ratio solid transparent;
+  border-right: @size/@size-ratio solid transparent;
+  border-bottom: @size solid @color;
+}
+.triangle(down, @size, @color, @size-ratio:1){
+  border-left: @size/@size-ratio solid transparent;
+  border-right: @size/@size-ratio solid transparent;
+  border-top: @size solid @color;
+}
+.triangle(left, @size, @color, @size-ratio:1){
+  border-top: @size/@size-ratio solid transparent;
+  border-right: @size solid @color;
+  border-bottom: @size/@size-ratio solid transparent;
+}
+.triangle(right, @size, @color, @size-ratio:1){
+  border-top: @size/@size-ratio solid transparent;
+  border-left: @size solid @color;
+  border-bottom: @size/@size-ratio solid transparent;
+}
+
+/* GRADIENTS */
+
+/* Base gradient mixin. This is taken from http://lesshat.com/#gradient (named "background-image" in LESS Hat)
+ * it takes as it's argument the W3C syntax for gradients and creates all necessary syntaxes,
+ * including SVG for ie9. However, it uses background-image and doesn't do the IE8 filter syntax. 
+ * 
+ * You use it like this:  
+ * 
+ *      .css3-gradient(linear-gradient(to right, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%));
+ * 
+ */
+
+.css3-gradient(...){
+
+      @w3c: true; // Unprefixed W3C syntax
+      @webkit: true; // Chrome 7+, Safari 5+, iOS5, Android
+      @moz: true; //  Firefox 4+
+      @opera: false; // Opera 10.5+
+      @ms: true;  // IE 10+
+      @oldWebkit: false; // iOS4, Safari 4, Chrome < 6. Old webkit gradient syntax
+      @svg: true; //  SVG gradient for IE9
+      
+      @backgroundSVG: ~`(function(){function G(a){var b="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",c,d,e,f,g,h,i,j,k=0,l=0,m="",n=[];if(!a)return a;do c=a.charCodeAt(k++),d=a.charCodeAt(k++),e=a.charCodeAt(k++),j=c<<16|d<<8|e,f=j>>18&63,g=j>>12&63,h=j>>6&63,i=j&63,n[l++]=b.charAt(f)+b.charAt(g)+b.charAt(h)+b.charAt(i);while(k<a.length);m=n.join("");var o=a.length%3;return(o?m.slice(0,o-3):m)+"===".slice(o||3)}var a="@{arguments}",b=null,c=!0,d=a.split(/,(?=\s*(?:linear|radial))/g),e=d.length,f=/top/,g=/right/,h=/bottom/,i=/left/,j=/to\s*top/,k=/to\s*right/,l=/to\s*bottom/,m=/to\s*left/,n=/45deg/,o=/-45deg/,p=/\d*deg/;for(var q=0;q<e;q++){if(/linear/.test(d[q])){d[q]=d[q].replace(/linear-gradient\s*\(/,'<?xml version="1.0" ?><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1 1" preserveAspectRatio="none">');if(f.test(d[q])&&!j.test(d[q])||l.test(d[q])||/180deg/.test(d[q])){var r=null;l.test(d[q])?r=l:/180deg/.test(d[q])?r=/180deg/:r=f,d[q]=d[q].replace(r,'<linearGradient id="grad-ucgg-generated" gradientUnits="userSpaceOnUse" x1="0%" y1="0%" x2="0%" y2="100%">')}else if(g.test(d[q])&&!k.test(d[q])||m.test(d[q])||/270deg/.test(d[q])){var r=null;m.test(d[q])?r=m:/270deg/.test(d[q])?r=/270deg/:r=g,d[q]=d[q].replace(r,'<linearGradient id="grad-ucgg-generated" gradientUnits="userSpaceOnUse" x1="100%" y1="0%" x2="0%" y2="0%">')}else if(h.test(d[q])&&!l.test(d[q])||j.test(d[q])||/[^\d]0deg/.test(d[q])){var r=null;j.test(d[q])?r=j:/0deg/.test(d[q])?r=/0deg/:r=h,d[q]=d[q].replace(r,'<linearGradient id="grad-ucgg-generated" gradientUnits="userSpaceOnUse" x1="0%" y1="100%" x2="0%" y2="0%">')}else if(i.test(d[q])&&!m.test(d[q])||k.test(d[q])||/90deg/.test(d[q])){var r=null;k.test(d[q])?r=k:/90deg/.test(d[q])?r=/90deg/:r=i,d[q]=d[q].replace(r,'<linearGradient id="grad-ucgg-generated" gradientUnits="userSpaceOnUse" x1="0%" y1="0%" x2="100%" y2="0%">')}else n.test(d[q])&&!o.test(d[q])?d[q]=d[q].replace(n,'<linearGradient id="grad-ucgg-generated" gradientUnits="userSpaceOnUse" x1="0%" y1="100%" x2="100%" y2="0%">'):o.test(d[q])?d[q]=d[q].replace(o,'<linearGradient id="grad-ucgg-generated" gradientUnits="userSpaceOnUse" x1="0%" y1="0%" x2="100%" y2="100%">'):c=!1}try{"".trim(),b=!0}catch(s){b=!1}b&&(d[q]=d[q].trim());if(/linear/.test(d[q])||/radial/.test(d[q])){d[q]=d[q].slice(0,-1),d[q]="url(data:image/svg+xml;base64--"+d[q]+'</linearGradient><rect x="0" y="0" width="1" height="1" fill="url(***)" /></svg>)';var t=d.join("@@@"),u=t.match(/rgba?\(\d+,\s*\d+,\s*\d+,\s*(?:0|1|\.\d+|0\.\d+)\)\s*\d*%*/g)||0,v=t.match(/hsla?\(\d+,\s*\d+%,\s*\d+%,\s*(?:0|1|\.\d+|0\.\d+)\)\s*\d*%*/g)||0,w=[],x=[];for(var y=0;y<u.length;y++)w[y]=u[y].replace(/,/g,"--");for(var z=0;z<v.length;z++)x[z]=v[z].replace(/,/g,"--");for(var A=0;A<u.length;A++)t=t.replace(u[A],w[A]);for(var B=0;B<v.length;B++)t=t.replace(v[B],x[B]);var C=t.split(",");for(var D=0;D<C.length;D++){C[D]=C[D].replace(/(#\w{3,6})\s*(\d*%*)/g,'<stop offset="$2" stop-color="$1" stop-opacity="1"/>').replace(/(rgba?\(\d+--\s*\d+--\s*\d+--\s*(0|1|\.\d+|0\.\d+)\))\s*(\d*%)*/g,'<stop offset="$3" stop-color="$1" stop-opacity="$2"/>').replace(/rgba/g,"rgb").replace(/(hsla?\(\d+--\s*\d+%--\s*\d+%--\s*(0|1|\.\d+|0\.\d+)\))\s*(\d*%)*/g,'<stop offset="$3" stop-color="$1" stop-opacity="$2"/>').replace(/hsla/g,"hsl").replace(/((?:aqua|black|blue|fuchsia|gray|grey|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow))\s*(\d*%)*/g,'<stop offset="$2" stop-color="$1" stop-opacity="1"/>').replace(/\*\*\*/,"#grad-ucgg-generated");try{"".trim(),b=!0}catch(s){b=!1}b&&(C[D]=C[D].trim())}C=C.toString().replace(/,/g,"").replace(/--/g,",").replace(/(rgb?\(\d+,\s*\d+,\s*\d+),\s*(?:0|1|\.\d+|0\.\d+)\)/g,"$1)").replace(/(hsl?\(\d+,\s*\d+%,\s*\d+%),\s*(?:0|1|\.\d+|0\.\d+)\)/g,"$1)")}}/radial/.test(C)&&(/((ellipse).*(center)|(circle).*(center))/g.test(C)?C=C.replace(/<\/linearGradient>/g,"</radialGradient>").replace(/radial-gradient[^<]+/g,'<?xml version="1.0" ?><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1 1" preserveAspectRatio="none"><radialGradient id="grad-ucgg-generated" gradientUnits="userSpaceOnUse" cx="50%" cy="50%" r="75%">').replace(/<rect x=\S+\d\S+ y=\S+\d\S+ width=\S+\d\S+ height=\S+\d\S+ fill=\S+\w\S+ \/>/g,'<rect x="-50" y="-50" width="101" height="101" fill="url(#grad-ucgg-generated)" />'):C=!1);var E=null;try{C=C.split("@@@");var F=0;for(F;F<C.length;F++)E=C[F].match(/<\?xml.*<\/svg>/),E=G(E.join("")),C[F]=C[F].replace(/(<\?xml.*<\/svg>)/,E)}catch(s){}return c?C:C=!1,C?C.toString().replace(/\[/g,"").replace(/\]/g,""):C}())`;
+      @backgroundMoz: ~`(function(){var a,b,c,d,e,f,g,h,i,j,k;a="@{arguments}",c=null,d=a.split(/,(?=\s*(?:linear|radial))/g),e=d.length,k=/to\s*top/,j=/to\s*right/,h=/to\s*bottom/,i=/to\s*left/,b=/\d*deg/,f=0;while(f<e){/linear/.test(d[f])?(d[f]=d[f].replace(/linear-gradient/,"-moz-linear-gradient"),k.test(d[f])?d[f]=d[f].replace(k,"bottom"):j.test(d[f])?d[f]=d[f].replace(j,"left"):h.test(d[f])?d[f]=d[f].replace(h,"top"):i.test(d[f])?d[f]=d[f].replace(i,"right"):b.test(d[f])&&(g=d[f].match(/\d*deg/),g=(parseInt(g)-90)*-1+"deg",d[f]=d[f].replace(b,g))):d[f]=d[f].replace(/radial-gradient/,"-moz-radial-gradient").replace(/,\s* \d*(px|%) \d*(px|%)/,", circle").replace(/\(+\s*(.*) at\s*([^,]+)/g,"($2, $1");try{"".trim(),c=!0}catch(l){c=!1}c&&(d[f]=d[f].trim()),f++}return d.toString().replace(/\[/g,"").replace(/\]/g,"");}())`;
+      @backgroundOldWebkit: ~`(function(){var a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C;a="@{arguments}",g=null,f=!0,i=a.split(/,(?=\s*(?:linear|radial))/g),j=i.length,C=/top/,v=/right/,c=/bottom/,p=/left/,B=/to\s*top/,A=/to\s*right/,y=/to\s*bottom/,z=/to\s*left/,d=/45deg/,e=/-45deg/,b=/\d*deg/,m=0;while(m<j){/linear/.test(i[m])&&(i[m]=i[m].replace(/linear-gradient\s*\(/,"-webkit-gradient(linear, "),C.test(i[m])&&!B.test(i[m])||y.test(i[m])||/180deg/.test(i[m])?(w=null,y.test(i[m])?w=y:/180deg/.test(i[m])?w=/180deg/:w=C,i[m]=i[m].replace(w,"left top, left bottom")):v.test(i[m])&&!A.test(i[m])||z.test(i[m])||/270deg/.test(i[m])?(w=null,z.test(i[m])?w=z:/270deg/.test(i[m])?w=/270deg/:w=v,i[m]=i[m].replace(w,"right top, left top")):c.test(i[m])&&!y.test(i[m])||B.test(i[m])||/[^\d]0deg/.test(i[m])?(w=null,B.test(i[m])?w=B:/0deg/.test(i[m])?w=/0deg/:w=c,i[m]=i[m].replace(w,"left bottom, left top")):p.test(i[m])&&!z.test(i[m])||A.test(i[m])||/90deg/.test(i[m])?(w=null,A.test(i[m])?w=A:/90deg/.test(i[m])?w=/90deg/:w=p,i[m]=i[m].replace(w,"left top, right top")):d.test(i[m])&&!e.test(i[m])?i[m]=i[m].replace(d,"left bottom, right top"):e.test(i[m])?i[m]=i[m].replace(e,"left top, right bottom"):f=!1),x=i.toString(),t=x.match(/rgba?\(\d+,\s*\d+,\s*\d+,\s*(?:0|1|\.\d+|0\.\d+)\)\s*\d*%*/g)||0,k=x.match(/hsla?\(\d+,\s*\d+%,\s*\d+%,\s*(?:0|1|\.\d+|0\.\d+)\)\s*\d*%*/g)||0,u=[],l=[],n=0;while(n<t.length)u[n]=t[n].replace(/,/g,"--"),n++;r=0;while(r<k.length)l[r]=k[r].replace(/,/g,"--"),r++;o=0;while(o<t.length)x=x.replace(t[o],u[o]),o++;s=0;while(s<k.length)x=x.replace(k[s],l[s]),s++;h=x.split(","),q=0;while(q<h.length){h[q]=h[q].replace(/(#\w{3,6})\s*(\d*%*)/g,"color-stop($2,$1)").replace(/(rgba?\(\d+--\s*\d+--\s*\d+--\s*(?:0|1|\.\d+|0\.\d+)\))\s*(\d*%)*/g,"color-stop($2,$1)").replace(/(hsla?\(\d+--\s*\d+%--\s*\d+%--\s*(?:0|1|\.\d+|0\.\d+)\))\s*(\d*%)*/g,"color-stop($2,$1)").replace(/--/g,",").replace(/((?:aqua|black|blue|fuchsia|gray|grey|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow))\s*(\d*%)*/g,"color-stop($2,$1)");try{"".trim(),g=!0}catch(D){g=!1}g&&(h[q]=h[q].trim()),q++}m++}return/radial/.test(h)&&(/((ellipse).*(center)|(circle).*(center))/g.test(h)&&/color-stop\(\s*\d*%/g.test(h)?h=h.join(",").replace(/radial-gradient\(.*?color/g,"-webkit-gradient(radial, center center, 0px, center center, 100%, color"):h=!1),f?h:h=!1,h?h.toString().replace(/\[/g,"").replace(/\]/g,""):h}())`;
+      @backgroundWebkit: ~`(function(){var a,b,c,d,e,f,g,h,i,j,k;a="@{arguments}",c=null,d=a.split(/,(?=\s*(?:linear|radial))/g),e=d.length,k=/to\s*top/,j=/to\s*right/,h=/to\s*bottom/,i=/to\s*left/,b=/\d*deg/,f=0;while(f<e){/linear/.test(d[f])?(d[f]=d[f].replace(/linear-gradient/,"-webkit-linear-gradient"),k.test(d[f])?d[f]=d[f].replace(k,"bottom"):j.test(d[f])?d[f]=d[f].replace(j,"left"):h.test(d[f])?d[f]=d[f].replace(h,"top"):i.test(d[f])?d[f]=d[f].replace(i,"right"):b.test(d[f])&&(g=d[f].match(/\d*deg/),g=(parseInt(g)-90)*-1+"deg",d[f]=d[f].replace(b,g))):d[f]=d[f].replace(/radial-gradient/,"-webkit-radial-gradient").replace(/\(+\s*(.*) at\s*([^,]+)/g,"($2, $1");try{"".trim(),c=!0}catch(l){c=!1}c&&(d[f]=d[f].trim()),f++}return d.toString().replace(/\[/g,"").replace(/\]/g,"");}())`;
+      @backgroundOpera: ~`(function(){var a,b,c,d,e,f,g,h,i,j,k;a="@{arguments}",c=null,d=a.split(/,(?=\s*(?:linear|radial))/g),e=d.length,k=/to\s*top/,j=/to\s*right/,h=/to\s*bottom/,i=/to\s*left/,b=/\d*deg/,f=0;while(f<e){/linear/.test(d[f])?(d[f]=d[f].replace(/linear-gradient/,"-o-linear-gradient"),k.test(d[f])?d[f]=d[f].replace(k,"bottom"):j.test(d[f])?d[f]=d[f].replace(j,"left"):h.test(d[f])?d[f]=d[f].replace(h,"top"):i.test(d[f])?d[f]=d[f].replace(i,"right"):b.test(d[f])&&(g=d[f].match(/\d*deg/),g=(parseInt(g)-90)*-1+"deg",d[f]=d[f].replace(b,g))):d[f]=d[f].replace(/radial-gradient/,"-o-radial-gradient").replace(/\(+\s*(.*) at\s*([^,]+)/g,"($2, $1");try{"".trim(),c=!0}catch(l){c=!1}c&&(d[f]=d[f].trim()),f++}return d.toString().replace(/\[/g,"").replace(/\]/g,"");})()`;
+      @backgroundW3C: ~`(function(){var a,b,c,d,e;a="@{arguments}",b=null,c=a.split(/,(?=\s*(?:linear|radial))/g),d=c.length,e=0;while(e<d){try{"".trim(),b=!0}catch(f){b=!1}b&&(c[e]=c[e].trim()),e++}return c.toString().replace(/\[/g,"").replace(/\]/g,"");}())`;
+
+      .result(@arguments, @boolean) when (@boolean = true) { background-image: @arguments; }
+      .result(@arguments, @boolean) when not (@boolean = true) { }
+      .result(@arguments, @boolean, @property) when (@boolean = true) and (isstring(@property)) { background-image: @arguments; }
+      .result(@arguments, @boolean, @property) when not (@boolean = true), not (isstring(@property)) { }
+
+      .result(@backgroundSVG, @svg, @backgroundSVG);
+      // --  this comment must be here because of LESS bug
+      .result(@backgroundMoz, @moz);
+      // --
+      .result(@backgroundOldWebkit, @oldWebkit, @backgroundOldWebkit);
+      // --
+      .result(@backgroundWebkit, @webkit);
+      // --
+      .result(@backgroundOpera, @opera);
+      // --
+      .result(@backgroundW3C, @w3c);
+}
+
+/**
+ * This one only does the fallback for IE8. It supports RGBA values so we can have transparency. 
+ * It only supports horizontal and vertical gradients with two colours. 
+ * The direction property takes 0 for vertical and 1 for horizontal.
+ */
+.ie8-gradient(@start, @stop, @direction: 0){
+  .ie8 &{
+    background-color: transparent;
+    filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorStr="argb(@start)~", endColorStr="argb(@stop)~",GradientType="@direction~" )";
+  }
+}
+
+/** 
+* Mixes two colors together and removes alpha to provide
+* fallback for gradient in older browsers
+*/
+.fallback-gradient(@start, @stop){
+  background-color: mix(fade(@start, 100%), fade(@stop, 100%), 50);
+}
+
+/**
+ *  Shortcuts for common gradient types
+ */
+
+//Fallback for unsupported browsers
+.gradient(@start, @stop, @direction) when(iscolor(@start)) and (iscolor(@start)){
+  .fallback-gradient(@start, @stop);
+}
+
+//Linear Vertical
+.gradient(@start, @stop, @direction: vertical) when(@direction = vertical){
+  .css3-gradient(linear-gradient(to bottom, @start 0%, @stop 100%)); 
+  .ie8-gradient(@start, @stop);
+}
+
+//Linear Horizontal
+.gradient(@start, @stop, @direction: vertical) when(@direction = horizontal){
+  .css3-gradient(linear-gradient(to right, @start 0%, @stop 100%)); 
+  .ie8-gradient(@start, @stop, 1);
+}
+
+//Radial
+//Note that this produces linear vertical in IE8
+.gradient(@start, @stop, @direction: vertical) when(@direction = radial){
+  .css3-gradient(radial-gradient(ellipse at center, @start 0%, @stop 100%)); 
+  .ie8-gradient(@start, @stop, 1);
+}
+
+//"Glass" (Linear vertical, 4 colours);
+.gradient(glass, @1, @2, @3, @4){
+  .fallback-gradient(@2, @3);
+  .css3-gradient(linear-gradient(to bottom, @1 0%,@2 50%,@3 51%,@4 100%)); 
+  .ie8-gradient(@2, @4);
+}
+
+.transition-duration(@duration: 0.2s) {
+  -moz-transition-duration: @duration;
+  -webkit-transition-duration: @duration;
+  -o-transition-duration: @duration;
+  transition-duration: @duration;
+}
+.transform(...) {
+  -webkit-transform: @arguments;
+  -moz-transform: @arguments;
+  -o-transform: @arguments;
+  -ms-transform: @arguments;
+  transform: @arguments;
+}
+.rotation(@deg:5deg){
+  .transform(rotate(@deg));
+}
+.scale(@ratio:1.5){
+  .transform(scale(@ratio));
+}
+.transition(@duration:0.2s, @ease:ease-out) {
+  -webkit-transition: all @duration @ease;
+  -moz-transition: all @duration @ease;
+  -o-transition: all @duration @ease;
+  transition: all @duration @ease;
+}
+.inner-shadow(@horizontal:0, @vertical:1px, @blur:2px, @alpha: 0.4) {
+  -webkit-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+  -moz-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+  box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+}
+.box-shadow(@arguments) {
+  -webkit-box-shadow: @arguments;
+  -moz-box-shadow: @arguments;
+  box-shadow: @arguments;
+}
+.box-sizing(@sizing: border-box) {
+  -ms-box-sizing: @sizing;
+  -moz-box-sizing: @sizing;
+  -webkit-box-sizing: @sizing;
+  box-sizing: @sizing;
+}
+.user-select(@argument: none) {
+  -webkit-user-select: @argument;
+  -moz-user-select: @argument;
+  -ms-user-select: @argument;
+  user-select: @argument;
+}
+.columns(@colwidth: 250px, @colcount: 0, @colgap: 50px, @columnRuleColor: #EEE, @columnRuleStyle: solid, @columnRuleWidth: 1px) {
+  -moz-column-width: @colwidth;
+  -moz-column-count: @colcount;
+  -moz-column-gap: @colgap;
+  -moz-column-rule-color: @columnRuleColor;
+  -moz-column-rule-style: @columnRuleStyle;
+  -moz-column-rule-width: @columnRuleWidth;
+  -webkit-column-width: @colwidth;
+  -webkit-column-count: @colcount;
+  -webkit-column-gap: @colgap;
+  -webkit-column-rule-color: @columnRuleColor;
+  -webkit-column-rule-style: @columnRuleStyle;
+  -webkit-column-rule-width: @columnRuleWidth;
+  column-width: @colwidth;
+  column-count: @colcount;
+  column-gap: @colgap;
+  column-rule-color: @columnRuleColor;
+  column-rule-style: @columnRuleStyle;
+  column-rule-width: @columnRuleWidth;
+}
+.translate(@x:0, @y:0) {
+  .transform(translate(@x, @y));
+}
+.background-clip(@argument: padding-box) {
+  -moz-background-clip: @argument;
+  -webkit-background-clip: @argument;
+  background-clip: @argument;
+}
+.drop-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1) {
+  -webkit-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+  -moz-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+  box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+}

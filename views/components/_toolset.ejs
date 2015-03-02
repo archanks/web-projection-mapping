@@ -1,57 +1,37 @@
-<nav class="shape-tools">
-  <ul class="tool-set">
+<nav class="shape-tools tool-set">
 
-    <li>
-      <button class="tool active" data-tool="rectangle">
-        <%- include ../svg/rectangle.ejs %>
-      </button>
-    </li>
+  <button class="tool active" data-tool="rectangle">
+    <%- include ../svg/rectangle.ejs %>
+  </button>
 
-    <li>
-      <button class="tool" data-tool="circle">
-        <%- include ../svg/circle.ejs %>
-      </button>
-    </li>
+  <button class="tool" data-tool="circle">
+    <%- include ../svg/circle.ejs %>
+  </button>
 
-    <li>
-      <button class="tool" data-tool="polygon">
-        <%- include ../svg/polygon.ejs %>
-      </button>
-    </li>
+  <button class="tool" data-tool="polygon">
+    <%- include ../svg/polygon.ejs %>
+  </button>
 
-    <li><button class="tool" data-tool="pen">
-        <%- include ../svg/freehand.ejs %>
-      </button>
-    </li>
+  <button class="tool" data-tool="pen">
+    <%- include ../svg/freehand.ejs %>
+  </button>
 
-    <li>
-      <button class="tool" data-tool="edit">
-        <%- include ../svg/select.ejs %>
-      </button>
-    </li>
-  </ul>
+  <button class="tool" data-tool="edit">
+    <%- include ../svg/select.ejs %>
+  </button>
+
 </nav>
 
-<nav class="asset-tools">
-  <ul class="tool-set">
+<nav class="asset-tools tool-set">
+  <button class="tool" data-tool="instagram">
+    <%- include ../svg/instagram.ejs %>
+  </button>
 
-    <li>
-      <button class="tool active" data-tool="instagram">
-        <%- include ../svg/instagram.ejs %>
-      </button>
-    </li>
+  <button class="tool" data-tool="image">
+    <%- include ../svg/image.ejs %>
+  </button>
 
-    <li>
-      <button class="tool active" data-tool="image">
-        <%- include ../svg/image.ejs %>
-      </button>
-    </li>
-
-    <li>
-      <button class="tool active" data-tool="video">
-        <%- include ../svg/video.ejs %>
-      </button>
-    </li>
-
-  </ul>
+  <button class="tool" data-tool="video">
+    <%- include ../svg/video.ejs %>
+  </button>
 </nav>

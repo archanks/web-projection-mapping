@@ -1,0 +1,36 @@
+@import "global.less";
+
+.site-header{
+  border-bottom: solid 1px @panel-header;
+  padding: 10px 0 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+
+  .logo{
+    display: inline;
+    svg{
+      stroke: @primary;
+      fill : @primary;
+      padding: 10px;
+    }
+  }
+
+  .site-nav{
+    display: inline;
+    float:right;
+    margin-right: 10px;
+
+    .nav-button{
+      .sans();
+      background: @base;
+      color: @primary;
+      outline: none;
+      padding: 10px;
+      &:hover{
+        background: lighten(@base, 15%);
+      }
+    }
+  }
+}

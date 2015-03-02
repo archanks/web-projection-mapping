@@ -1,0 +1,38 @@
+@import "global.less";
+
+.tool-set{
+  position: fixed;
+  top: 75px;
+  width: 55px;
+  .tool{
+  	.no-select();
+    background: @panel-body;
+    outline: none;
+    width: 100%;
+    svg{
+      stroke: @primary;
+      padding: 10px 0;
+    }
+    &:hover{
+      background: @panel-active;
+    }
+    &.active{
+        &:before{
+          .sans();
+          color: @primary;
+          content: 'Γ';
+          left: 0;
+          position: absolute;
+          top: 0;
+        }
+    }
+  }
+}
+
+.shape-tools{
+  left: 10px;
+}
+
+.asset-tools{
+ right: 10px;
+}
